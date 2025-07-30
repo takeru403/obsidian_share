@@ -1,0 +1,156 @@
+# Claude Code 基本使用方法
+
+## インストール・セットアップ
+
+### 1. インストール
+```bash
+# macOS
+curl -L https://github.com/anthropics/claude-code/releases/latest/download/claude-code-macos.zip -o claude-code.zip
+unzip claude-code.zip
+sudo mv claude /usr/local/bin/
+
+# 認証
+claude auth
+```
+
+### 2. プロジェクト初期化
+```bash
+# プロジェクトディレクトリで実行
+claude init
+```
+
+## 基本コマンド
+
+### セッション管理
+```bash
+claude                 # 新しい対話セッションを開始
+claude --continue      # 直近のセッションを継続
+claude --resume        # 過去のセッションから選択して再開
+claude --help          # ヘルプ表示
+```
+
+### プロジェクト管理
+```bash
+claude --project-name "プロジェクト名"  # プロジェクト名を指定
+claude --model sonnet                   # 使用モデルを指定
+```
+
+## セッション内コマンド
+
+### プロジェクト設定
+```
+/init         # プロジェクト用のCLAUDE.mdを作成
+/model        # 利用するAIモデルを変更
+```
+
+### 会話管理
+```
+/clear        # コンテキストをリセット
+/compact      # 会話を要約してトークンを節約
+/memory       # メモリ管理（重要な情報を保存）
+```
+
+### コードレビュー・協業
+```
+/review       # Pull Requestやコミットをレビュー
+/commit       # 変更をコミット
+/pr           # Pull Request作成
+```
+
+### ユーティリティ
+```
+/help         # 利用可能なコマンド一覧
+/settings     # 設定表示・変更
+/usage        # 使用量確認
+```
+
+## 実践的な使用例
+
+### 1. 新しいWebアプリプロジェクト開始
+```bash
+mkdir my-app && cd my-app
+claude init
+claude
+```
+
+セッション内で：
+```
+Next.jsとFastAPIを使ったWebアプリを作成したい。
+フロントエンドはReact + Tailwind CSS、
+バックエンドはPython FastAPIでREST APIを提供。
+```
+
+### 2. 既存プロジェクトの改善
+```bash
+cd existing-project
+claude --continue
+```
+
+セッション内で：
+```
+このプロジェクトにユーザー認証機能を追加したい。
+JWTトークンベースの認証を実装してください。
+```
+
+### 3. エラー修正・デバッグ
+```bash
+claude
+```
+
+セッション内で：
+```
+npm run devを実行するとエラーが発生します。
+エラーログを確認して修正してください。
+```
+
+## 効果的な指示の出し方
+
+### ✅ 良い例
+```
+TODOアプリを作成したい。以下の機能が必要：
+- タスクの追加・削除・完了マーク
+- カテゴリ別の分類
+- 締切日の設定
+- データはローカルストレージに保存
+技術スタック：Next.js + TypeScript + Tailwind CSS
+```
+
+### ❌ 悪い例
+```
+アプリ作って
+```
+
+## トラブルシューティング
+
+### よくある問題と解決策
+
+**認証エラー**
+```bash
+claude auth           # 再認証
+claude --version      # バージョン確認
+```
+
+**セッションが重い場合**
+```
+/compact              # 会話を要約
+/clear               # コンテキストリセット
+```
+
+**コード変更が反映されない**
+```
+/memory save "重要な仕様や要件"  # 重要情報を保存
+/clear                          # その後クリア
+```
+
+## 料金・制限について
+
+- **Pro プラン**: 月額20ドル
+- **使用量制限**: 1日あたりのメッセージ数に制限あり
+- **モデル選択**: Sonnet（高精度）、Haiku（高速・軽量）
+
+## 参考資料
+
+- [Claude Code公式ドキュメント](https://docs.anthropic.com/claude/docs)
+- [GitHub統合ガイド](https://docs.anthropic.com/claude/docs/github-integration)
+
+

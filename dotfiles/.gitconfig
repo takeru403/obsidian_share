@@ -1,0 +1,83 @@
+# ===============================
+# Git設定ファイル（社内共有用）
+# ===============================
+# 使用前に [user] セクションを自分の情報に変更してください
+
+[user]
+	# 👇 これらを自分の情報に変更
+	name = Your Name
+	email = your.email@company.com
+
+[init]
+	defaultBranch = main
+
+[color]
+	ui = auto
+	branch = auto
+	diff = auto
+	status = auto
+
+[core]
+	editor = vim
+	autocrlf = input
+	excludesfile = ~/.gitignore_global
+	# より大きなファイルのプッシュに対応
+	
+[http]
+	postBuffer = 1048576000
+
+[push]
+	default = simple
+	autoSetupRemote = true
+
+[pull]
+	rebase = false
+
+[branch]
+	autosetupmerge = always
+	autosetuprebase = always
+
+[merge]
+	tool = vimdiff
+
+[diff]
+	tool = vimdiff
+
+# ===============================
+# Git LFS設定
+# ===============================
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+
+# ===============================
+# よく使うエイリアス
+# ===============================
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	cm = commit
+	ca = commit -a
+	cam = commit -am
+	pl = pull
+	ps = push
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	visual = !gitk
+	
+# ===============================
+# GitHub CLI関連
+# ===============================
+[credential]
+	helper = 
+	helper = store
+
+# ===============================
+# セキュリティ設定
+# ===============================
+[url "https://"]
+	insteadOf = git://

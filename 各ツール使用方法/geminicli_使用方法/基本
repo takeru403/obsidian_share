@@ -1,0 +1,204 @@
+# Gemini CLI 基本使用方法
+
+## インストール・セットアップ
+
+### 1. インストール
+```bash
+# Node.js経由でインストール
+npm install -g gemini-cli
+
+# または Homebrew（macOS）
+brew install gemini-cli
+
+# Pythonパッケージの場合
+pip install gemini-cli
+```
+
+### 2. 認証設定
+```bash
+# Google AI Studio APIキーを設定
+export GEMINI_API_KEY="your-api-key"
+
+# または設定ファイルに保存
+gemini config set api-key "your-api-key"
+```
+
+## 基本的な使用方法
+
+### 対話モード
+```bash
+gemini                    # 対話セッションを開始
+```
+
+終了方法：
+- `Ctrl + C` で終了
+- `/quit` コマンドで終了
+
+### 非対話モード（単発実行）
+```bash
+gemini --prompt "任意のプロンプト"        # 単発質問
+echo "プロンプト" | gemini              # パイプでプロンプト渡し
+```
+
+## 対話モード内コマンド
+
+### 基本コントロール
+```
+/clear        # 画面クリア（会話履歴は保持）
+/help         # ヘルプ表示
+/quit         # 終了
+/reset        # 会話履歴をリセット
+```
+
+### チャット管理
+```
+/chat save <名前>        # チャットセッションを保存
+/chat resume <名前>      # 保存したチャットを復元
+/chat list              # 保存済みチャット一覧
+/chat delete <名前>     # チャットを削除
+```
+
+### ファイル・ディレクトリ操作
+```
+@/path/to/file.txt      # ファイル内容をコンテキストに追加
+@/path/to/directory/    # ディレクトリ内容を再帰的に読み込み
+```
+
+### コマンド実行
+```
+!ls -la                 # シェルコマンドを実行し結果を共有
+!cat package.json       # ファイル内容をコマンド経由で表示
+!git status            # Git状態を確認
+```
+
+## 高度なオプション
+
+### モデル選択
+```bash
+gemini --model gemini-pro           # Gemini Pro使用
+gemini --model gemini-pro-vision    # 画像対応モデル
+gemini --model gemini-1.5-pro       # 最新モデル
+```
+
+### ファイル操作
+```bash
+gemini --all-files                  # 全ファイルを再帰的に読み込み
+gemini --include "*.js,*.ts"        # 特定拡張子のみ
+gemini --exclude "node_modules/"    # 特定ディレクトリを除外
+```
+
+### 安全性・バックアップ
+```bash
+gemini --sandbox                    # サンドボックス環境で実行
+gemini --checkpoint                 # 実行前の状態を保存
+```
+
+実行中に：
+```
+/restore                           # チェックポイントに復元
+```
+
+## 実践的な使用例
+
+### 1. コードレビュー
+```bash
+gemini
+```
+対話内で：
+```
+@src/components/UserProfile.tsx
+このコンポーネントのコードレビューをお願いします。
+改善点があれば教えてください。
+```
+
+### 2. エラー解決
+```bash
+gemini
+```
+対話内で：
+```
+!npm run build
+上記のビルドエラーを解決したいです。
+エラーログを見て修正方法を教えてください。
+```
+
+### 3. プロジェクト分析
+```bash
+gemini --all-files --exclude "node_modules/,dist/"
+```
+対話内で：
+```
+このプロジェクトの構造を分析して、
+以下について教えてください：
+- 使用している技術スタック
+- 主要なコンポーネント
+- 改善提案
+```
+
+### 4. ドキュメント生成
+```bash
+gemini
+```
+対話内で：
+```
+@src/api/
+この API ディレクトリの関数について、
+使用方法を説明するREADME.mdを作成してください。
+```
+
+## よく使うワークフロー
+
+### デバッグ支援
+```bash
+# エラーログを直接解析
+npm run test 2>&1 | gemini --prompt "このテストエラーを解決して"
+
+# 複数ファイル関連のエラー
+gemini --include "*.test.js" --prompt "テストが失敗する原因を分析して"
+```
+
+### コード生成・修正
+```bash
+# 設計から実装まで
+gemini --prompt "ユーザー認証機能のAPIエンドポイントを設計・実装して"
+
+# 既存コード改善
+gemini --all-files --prompt "このプロジェクトのパフォーマンスを改善する方法は？"
+```
+
+## トラブルシューティング
+
+### APIキー関連
+```bash
+# 設定確認
+gemini config get api-key
+
+# 新しいAPIキー設定
+gemini config set api-key "new-api-key"
+```
+
+### パフォーマンス
+```bash
+# 大きなプロジェクトの場合
+gemini --max-tokens 100000           # トークン上限を設定
+gemini --timeout 60                  # タイムアウト設定
+```
+
+### よくあるエラー
+```
+Rate limit exceeded         # → 少し待ってからリトライ
+File too large             # → --exclude で大きなファイルを除外
+Network error              # → インターネット接続を確認
+```
+
+## 費用・制限について
+
+- **無料枠**: 月々一定のリクエスト数まで無料
+- **有料プラン**: 使用量に応じた従量課金
+- **ファイルサイズ制限**: 1回のリクエストあたり上限あり
+
+## 参考資料
+
+- [Gemini API公式ドキュメント](https://ai.google.dev/docs)
+- [Google AI Studio](https://makersuite.google.com/) - APIキー取得
+
