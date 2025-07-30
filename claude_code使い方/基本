@@ -1,0 +1,17 @@
+ii
+
+
+claude #対話セッションを開始
+claude --continue #直近のセッションを継続
+claude --resume #過去のセッションから選択して再開
+
+
+claudeコマンドを実行した後のセッション内で使用するコマンド
+/init   プロジェクト用のClaude.mdを作成
+/clear  コンテキストをリセット
+/compact  会話を要約してトークンの節約
+/review  pull requestなどを指定するとレビューしてくれる
+/hepl  利用可能なコマンド一覧
+/model 利用するAIモデル
+
+

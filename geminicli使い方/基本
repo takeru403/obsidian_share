@@ -1,0 +1,32 @@
+geminiコマンドをターミナル上で実行して起動
+Ctrl + Cで終了
+
+@your/path/tmp.txt
+これにより、ファイルorフォルダの中身をgeminiに受け渡すことができる。
+
+!ls
+コマンドを実行してその結果をgeminiに受け渡すことができる。
+
+/clear 画面クリア
+/help ヘルプ表示
+/quit 終了
+
+/chat save 任意の名前　チャットの保存
+/chat resume 任意の名前 チャットの復元
+/chat list チャットの一覧
+
+非対話モード
+gemini --prompt "任意のプロンプト"
+単発の命令をzshの中で使用することができる。
+gemini --model <モデル名>
+使用するモデルの選択
+gemini --all-files
+カレントディレクトリ以下の全てのファイルを再起的に読み込み、コンテキストにすることができる。
+gemini --sandbox
+Dockerなどの安全なサンドボックスを指定できる。
+gemini --chekpointng
+ツールの実行前にファイルを保存して/restore狛dので復元できる。
+
+echo "プロンプト" | gemini
+よう使うコマンド
+
