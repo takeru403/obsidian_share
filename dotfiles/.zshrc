@@ -21,7 +21,7 @@ fi
 # 🌟 Oh My Zsh Settings
 # ===============================
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"  # または "agnoster", "robbyrussell"
+# ZSH_THEME="powerlevel10k/powerlevel10k"  # または "agnoster", "robbyrussell" #日本語表記のブレにつながっていたので20250913解除
 plugins=(
   git
   z
@@ -87,7 +87,7 @@ export SAVEHIST=100000
 # ===============================
 # 🎨 Powerlevel10k設定
 # ===============================
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ===============================
 # 📦 Package Paths (macOS)
@@ -157,4 +157,48 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # AI開発用の環境変数設定例（必要に応じて）
 # export OPENAI_API_KEY="your-key-here"
-# export ANTHROPIC_API_KEY="your-key-here"
+# export ANTHROPIC_API_KEY="your-key-here"source /Users/takeru.tsuchiya/Desktop/obsidian_share/dotfiles/aliases.sh
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select
+
+export PYTHONPATH="."
+export PYTHON_COLORS=1
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+
+
+### 補完侯補をメニューから選択する。
+### select=2: 補完候補を一覧から選択する。補完候補が2つ以上なければすぐに補完する。
+zstyle ':completion:*:default' menu select=2
+### 補完候補に色を付ける。
+#zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors "${LS_COLORS}"
+## タブ補完時に大文字小文字を区別しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# settings for pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+# settings for pyenv-virtualenv
+eval "$(pyenv virtualenv-init -)"
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1 # do NOT display pyenv-virtualenv-name in prompt
+# export VIRTUAL_ENV_DISABLE_PROMPT=1 # do NOT display python-venv-name in prompt
+
+
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+
+alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql
+
+export PATH="$HOME/.aqua/bin:$PATH"
+eval "$(aqua init -)"
+export PATH="$(aqua root-dir)/bin:$PATH"
